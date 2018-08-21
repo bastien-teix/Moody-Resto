@@ -29,7 +29,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.isAuthReady && !this.props.skipLoadingScreen) {
+    if ((!this.state.isLoadingComplete || !this.isAuthReady) && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -41,7 +41,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {(this.isAuthenticated ? <MainTabNavigator /> : <AppNavigator /> )}
+          {(this.state.isAuthenticated ? <MainTabNavigator /> : <AppNavigator /> )}
         </View>
       );
     }
